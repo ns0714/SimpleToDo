@@ -31,8 +31,8 @@ public class ToDoActivity extends Activity {
 	public final int REQUEST_CODE = 20;
 	public final int REQUEST_CODE_1 = 25;
 	
-	public final String ERROR_EMPTY_TITLE = "Error a value is required";
-	public final String ERROR_EMPTY_MSG = "Please enter the item to add";
+	public final String ERROR_EMPTY_TITLE = "ERROR";
+	public final String ERROR_EMPTY_MSG = "Please enter a ToDo";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
