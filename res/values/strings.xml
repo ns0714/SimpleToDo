@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SimpleToDoList</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_edit_item">Edit ToDo Item</string>
+    <string name="add">Add Item</string>
+    <string name="addHint">Enter new item here</string>
+    <string name="addButton">Add</string>
+    <string name="saveButton">Save</string>
+    <string name="editHint">Enter here to edit</string>
+    <string name="dueDateHint">Click here to select Due date</string>
+
+    <color name="ivory">#FFFFF0</color>
+    
+    <color name="blue">#3C7AE4</color>
+
+    <string name="title_activity_priority">PriorityActivity</string>
+
+    <string name="submit">Submit</string>
+
+    <string name="prority_date">Set Date</string>
+
+    <string name="dateItem">Select Date</string>
+
+    <string name="editField">Edit your text here</string>
+
+    <string name="page_title">Edit Text Here</string>
+
+    <string name="edit">Edit :</string>
+
+    <string name="due">Due:</string>
+
+</resources>

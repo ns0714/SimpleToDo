@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top"
+    tools:context="${relativePackage}.${activityClass}" >
+    
+     <TextView
+         android:id="@+id/editView"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentTop="true"
+         android:layout_marginLeft="15dp"
+         android:layout_marginTop="16dp"
+         android:ems="13"
+         android:textSize="20sp"
+         android:minEms="@integer/textSize"
+         android:text="@string/editField" />
+     
+    <EditText
+        android:id="@+id/editItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_below="@+id/editView"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="70dp"
+        android:ems="13"
+        android:hint="@string/editHint"
+        android:inputType="textMultiLine"
+        android:lines="2"
+        android:maxLength="40" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/dateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editItem"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="70dp"
+        android:ems="13"
+        android:hint="@string/dueDateHint"
+        android:inputType="date"
+        android:onClick="onClickPriority">
+        
+    </EditText>
+
+    <Button
+        android:id="@+id/saveBtn"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dateText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@color/blue"
+        android:onClick="onSubmit"
+        android:text="@string/saveButton" />
+
+    <TextView
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editItem"
+        android:layout_alignBottom="@+id/editItem"
+        android:layout_alignLeft="@+id/editView"
+        android:text="@string/edit"
+        android:textSize="18sp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/dueText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/dateText"
+        android:layout_alignBottom="@+id/dateText"
+        android:layout_alignLeft="@+id/editText"
+        android:text="@string/due"
+        android:textSize="18sp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>
