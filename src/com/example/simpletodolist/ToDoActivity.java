@@ -2,9 +2,7 @@ package com.example.simpletodolist;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 
@@ -20,17 +18,15 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 @SuppressLint("SimpleDateFormat")
 public class ToDoActivity extends Activity {
 
-	private ArrayList<String> items;
+	private ArrayList<Item> items;
 	private static ToDoAdapter adapter;
 	private ListView lvItems;
 	public final int REQUEST_CODE = 20;
-	public final int REQUEST_CODE_1 = 25;
-	
+
 	public final String ERROR_EMPTY_TITLE = "ERROR";
 	public final String ERROR_EMPTY_MSG = "Please enter a ToDo";
 
@@ -43,7 +39,7 @@ public class ToDoActivity extends Activity {
 	}
 
 	private void populateItemsList() {
-		items = new ArrayList<String>();
+		items = new ArrayList<Item>();
 		readItems();
 		adapter = new ToDoAdapter(this, items);
 		lvItems = (ListView) findViewById(R.id.lvItems);
@@ -53,20 +49,13 @@ public class ToDoActivity extends Activity {
 	// after new edited text is returned
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
 		if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-			items = data.getStringArrayListExtra("items_s");
-			long dateInMillis = data.getLongExtra("date", 0L);
-
-			TextView dueDate = (TextView) findViewById(R.id.dueDate);
-			SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-			String dateString = formatter.format(new Date(dateInMillis));
-			dueDate.setText(dateString);
-
+			items = data.getParcelableArrayListExtra("items_s");
 			adapter.notifyDataSetChanged();
 			lvItems.setAdapter(adapter);
 			saveItems();
 			readItems();
+			populateItemsList();
 			startActivity(data);
 		}
 	}
@@ -74,28 +63,28 @@ public class ToDoActivity extends Activity {
 	// gets called when Add button is called on main activity
 	public void addTodoItem(View v) {
 		EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
-		String addText = etNewItem.getText().toString();
-
-		if (addText.length() > 0) {
-			adapter.add(addText.trim());
+		String newItemText = etNewItem.getText().toString();
+		Item item = new Item(newItemText.trim(), "");
+		if (newItemText.length() > 0) {
+			adapter.add(item);
 			etNewItem.setText("");
 			saveItems();
-		}else{
+		} else {
 			showErrorDialogForEmptyInput();
 		}
 	}
-	
-	public AlertDialog showErrorDialogForEmptyInput(){
+
+	public AlertDialog showErrorDialogForEmptyInput() {
 		return new AlertDialog.Builder(this)
-	    .setTitle(ERROR_EMPTY_TITLE)
-	    .setMessage(ERROR_EMPTY_MSG)
-	    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-	        public void onClick(DialogInterface dialog, int which) { 
-	            //return to screen- do nothing
-	        }
-	     })
-	    .setIcon(android.R.drawable.ic_dialog_alert)
-	    .show();
+				.setTitle(ERROR_EMPTY_TITLE)
+				.setMessage(ERROR_EMPTY_MSG)
+				.setPositiveButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// return to screen- do nothing
+							}
+						}).setIcon(android.R.drawable.ic_dialog_alert).show();
 	}
 
 	// gets called after long click -items gets removed
@@ -132,9 +121,8 @@ public class ToDoActivity extends Activity {
 	public void openClickItem(int position, long rowId) {
 
 		Intent i = new Intent(ToDoActivity.this, EditItemActivity.class);
-		i.putStringArrayListExtra("items", items);
+		i.putParcelableArrayListExtra("items", items);
 		i.putExtra("position", position);
-		i.putExtra("itemValue", items.get(position));
 		startActivityForResult(i, REQUEST_CODE);
 	}
 
@@ -143,9 +131,18 @@ public class ToDoActivity extends Activity {
 		File filesDir = getFilesDir();
 		File todoFile = new File(filesDir, "todo.txt");
 		try {
-			items = new ArrayList<String>(FileUtils.readLines(todoFile));
+			ArrayList<String> todos = (ArrayList<String>) FileUtils.readLines(todoFile);
+			for (String todo : todos) {
+				String[] toSplit = todo.split(",");
+
+				if (toSplit.length > 1) {
+					items.add(new Item(toSplit[0], toSplit[1]));
+				} else {
+					items.add(new Item(toSplit[0], ""));
+				}
+			}
 		} catch (IOException ex) {
-			items = new ArrayList<String>();
+			items = new ArrayList<Item>();
 			ex.printStackTrace();
 		}
 	}
@@ -155,7 +152,11 @@ public class ToDoActivity extends Activity {
 		File filesDir = getFilesDir();
 		File todoFile = new File(filesDir, "todo.txt");
 		try {
-			FileUtils.writeLines(todoFile, items);
+			ArrayList<String> savedTodos = new ArrayList<String>();
+			for (Item todo : items) {
+				savedTodos.add(todo.getItemName() + "," + todo.getDueDate());
+			}
+			FileUtils.writeLines(todoFile, savedTodos);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}

@@ -8,8 +8,6 @@ import android.widget.CalendarView;
 
 public class PriorityActivity extends Activity {
 
-	public final int REQUEST_CODE = 30;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
