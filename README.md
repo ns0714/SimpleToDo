@@ -20,4 +20,4 @@ Walkthrough of all user stories:
 Gif Image
 
 
-![Alt Text](simpleTo-DoList.gif)
+![Alt Text](simpleTo-DoListP.gif)
