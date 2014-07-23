@@ -98,7 +98,7 @@ public class MySqlLiteHelper extends SQLiteOpenHelper {
     public List<Item> getAllItems() {
         List<Item> items = new LinkedList<Item>();
  
-        String query = "SELECT  * FROM " + TABLE_ITEMS;
+        String query = "SELECT  * FROM " + TABLE_ITEMS +" ORDER BY " + KEY_DUEDATE;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
  
