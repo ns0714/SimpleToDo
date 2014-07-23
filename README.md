@@ -13,11 +13,9 @@ Completed user stories:
 - [x] Optional: Set priority/due dates for items
 - [x] Optional: Customized list view to show additional details
 
-•	Notes: priority date is not getting updated on item list. Work in progress.
-
 Walkthrough of all user stories:
 
 Gif Image
 
 
-![Alt Text](simpleTo-DoList.gif)
+![Alt Text](simpleTo-DoListP.gif)
