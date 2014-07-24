@@ -53,9 +53,9 @@ public class EditItemActivity extends Activity {
 		if(dateInMillis!=0L){
 			Date dueDate = new Date(dateInMillis);
 			dateString = formatter.format(dueDate);
-		}else{
+		}/*else{
 			dateString = "";
-		}
+		}*/
 		
 		int itemid = getIntent().getIntExtra("itemid", 0);
 		Item newEditedItem = new Item(itemid, editText.getText().toString(), dateString);
@@ -63,7 +63,6 @@ public class EditItemActivity extends Activity {
 		if (newEditedItem != null) {
 			int pos = getIntent().getIntExtra("position", 0);
 			
-			//intent.putParcelableArrayListExtra("items_s", items);
 			intent.putExtra("itemid" , itemid);
 			intent.putExtra("newItem" , editText.getText().toString());
 			intent.putExtra("date" , dateString);

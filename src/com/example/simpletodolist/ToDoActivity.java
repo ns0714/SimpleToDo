@@ -37,6 +37,7 @@ public class ToDoActivity extends Activity {
 		setUpListViewListener();
 	}
 
+	// displays items
 	private void populateItemsList() {
 		items = new ArrayList<Item>();
 		readItems();
@@ -45,7 +46,7 @@ public class ToDoActivity extends Activity {
 		lvItems.setAdapter(adapter);
 	}
 
-	// gets called when Add button is called on main activity
+	// gets called when Add button is clicked
 	public void addTodoItem(View v) {
 		EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
 		String newItemText = etNewItem.getText().toString();
@@ -60,6 +61,7 @@ public class ToDoActivity extends Activity {
 		}
 	}
 
+	// error message when nothing is entered and Add is clicked
 	public AlertDialog showErrorDialogForEmptyInput() {
 		return new AlertDialog.Builder(this)
 				.setTitle(ERROR_EMPTY_TITLE)
@@ -73,7 +75,7 @@ public class ToDoActivity extends Activity {
 						}).setIcon(android.R.drawable.ic_dialog_alert).show();
 	}
 
-	// gets called after long click -items gets removed
+	// gets called after long click -delete item from db and list
 	private void setUpListViewListener() {
 		lvItems.setOnItemLongClickListener(new OnItemLongClickListener() {
 
@@ -113,6 +115,7 @@ public class ToDoActivity extends Activity {
 		startActivityForResult(i, REQUEST_CODE);
 	}
 
+	// reads items from the database
 	private void readItems() {
 		List<Item> todos = db.getAllItems();
 		items = new ArrayList<Item>();
@@ -122,25 +125,26 @@ public class ToDoActivity extends Activity {
 		}
 	}
 
-	// saves items to todo.txt
+	// saves items to the database
 	private void saveItem(Item todo) {
 		db.addItem(todo);
 	}
 
+	// updates the edited item to the database
 	private void updateItems(Item item) {
 		db.updateItem(item);
 	}
 
-	// after new edited text is returned
+	// displays new edited text
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-			
+
 			int itemid = data.getIntExtra("itemid", 0);
 			String newItem = data.getExtras().getString("newItem");
 			String date = data.getExtras().getString("date");
 			int pos = data.getIntExtra("position", 0);
-			
+
 			Item newEditedItem = new Item(itemid, newItem, date);
 
 			items.set(pos, newEditedItem);

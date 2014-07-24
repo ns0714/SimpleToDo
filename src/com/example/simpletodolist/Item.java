@@ -7,7 +7,21 @@ public class Item implements Parcelable {
 	private String itemName;
 	private String dueDate;
 	private int id;
+	
+	public Item() {
+	}
 
+	public Item(String itemName, String dueDate) {
+		this.itemName = itemName;
+		this.dueDate = dueDate;
+	}
+
+	public Item(int id, String itemName, String dueDate) {
+		this.id = id;
+		this.itemName = itemName;
+		this.dueDate = dueDate;
+	}
+	
 	public String getItemName() {
 		return itemName;
 	}
@@ -24,31 +38,12 @@ public class Item implements Parcelable {
 		this.dueDate = dueDate;
 	}
 
-	public Item(String itemName, String dueDate) {
-		this.itemName = itemName;
-		this.dueDate = dueDate;
-	}
-
-	public Item(int id, String itemName, String dueDate) {
-		this.id = id;
-		this.itemName = itemName;
-		this.dueDate = dueDate;
-	}
-
-	public Item() {
-
-	}
-
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public Item(String itemName) {
-		this.itemName = itemName;
 	}
 
 	@Override
